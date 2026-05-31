@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avicruz - Plataforma Avícola Integral</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-green: #37b77e;
+            --secondary-green: #298c5f;
+            --text-dark: #2b3035;
+            --text-light: #718096;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --transition-main: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- Reseteo y Base --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition-main);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Tipografía de Secciones --- */
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-light);
+            text-align: center;
+            max-width: 650px;
+            margin: 0 auto 60px;
+        }
+
+        /* --- Botones --- */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition-main);
+        }
+
+        .btn-green {
+            background-color: var(--primary-green);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(55, 183, 126, 0.25);
+        }
+
+            .btn-green:hover {
+                background-color: var(--secondary-green);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(55, 183, 126, 0.4);
+            }
+
+        .btn-dark {
+            background-color: var(--text-dark);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+            .btn-dark:hover {
+                background-color: #1a1d20;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            }
+
+        /* --- Navbar --- */
+        header {
+            background-color: rgba(248, 250, 252, 0.95);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo, .footer-logo {
+            display: flex;
+            align-items: center;
+            transition: var(--transition-main);
+        }
+
+            .nav-logo:hover, .footer-logo:hover {
+                opacity: 0.8;
+            }
+
+            .nav-logo img, .footer-logo img {
+                height: 45px;
+                width: auto;
+                object-fit: contain;
+            }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+        }
+
+        .nav-link {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-light);
+        }
+
+            .nav-link:hover {
+                color: var(--text-dark);
+            }
+
+        .nav-cta {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 80px 0 140px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-text h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+        }
+
+            .hero-text h1 span {
+                color: var(--primary-green);
+            }
+
+        .hero-text p {
+            font-size: 17px;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            max-width: 90%;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+        }
+
+        .hero-image {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-accent-circle {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(55, 183, 126, 0.1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            z-index: 1;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .hero-main-img {
+            width: 100%;
+            max-width: 380px;
+            position: relative;
+            z-index: 2;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.12));
+            transition: transform 0.4s ease;
+        }
+
+            .hero-main-img:hover {
+                transform: translateY(-5px);
+            }
+
+        /* Overlays flotantes */
+        .ui-overlay {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            padding: 20px;
+            z-index: 3;
+            transition: var(--transition-main);
+            opacity: 0;
+            transform: translateY(20px);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+            .ui-overlay.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        .ui-chicken-lots {
+            top: 40px;
+            left: -30px;
+            width: 220px;
+        }
+
+        .ui-egg-prod {
+            bottom: 40px;
+            left: -60px;
+            width: 260px;
+        }
+
+        .ui-dr-checkup {
+            top: 200px;
+            right: -50px;
+            width: 230px;
+        }
+
+        /* --- Sección de Servicios (Widgets) --- */
+        .services {
+            padding: 100px 0;
+            background-color: var(--white);
+            border-radius: 60px 60px 0 0;
+            box-shadow: 0 -20px 40px rgba(0,0,0,0.02);
+            position: relative;
+            z-index: 10;
+            margin-top: -60px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .service-widget {
+            background: var(--white);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.04);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition-main);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .service-widget:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 20px 40px rgba(55, 183, 126, 0.08);
+                border-color: rgba(55, 183, 126, 0.2);
+            }
+
+        .widget-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .widget-icon {
+            width: 65px;
+            height: 65px;
+            background-color: #f1fbf7;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--primary-green);
+        }
+
+        .widget-badge {
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .service-widget h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .service-widget p {
+            color: var(--text-light);
+            font-size: 15px;
+            margin-bottom: 25px;
+            flex-grow: 1;
+        }
+
+        .widget-link {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .service-widget:hover .widget-link {
+            color: var(--primary-green);
+            gap: 12px;
+        }
+
+        /* --- Sección Asesoría (Dr. Mercado) --- */
+        .advisory {
+            padding: 100px 0;
+            background-color: var(--bg-light);
+        }
+
+        .dr-mercado-card {
+            background-color: var(--white);
+            border-radius: 30px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.04);
+            padding: 50px;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            max-width: 950px;
+            margin: 0 auto 60px;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .dr-mercado-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background-color: var(--primary-green);
+            object-fit: cover;
+            box-shadow: 0 10px 20px rgba(55, 183, 126, 0.2);
+            flex-shrink: 0;
+            border: 6px solid #f1fbf7;
+        }
+
+        .dr-mercado-info {
+            flex: 1;
+        }
+
+        .dr-name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .dr-title {
+            color: var(--primary-green);
+            font-weight: 600;
+            font-size: 14px;
+            background-color: #f1fbf7;
+            padding: 5px 15px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .consultation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .consult-card {
+            background-color: var(--white);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            text-align: center;
+            border: 1px solid rgba(0,0,0,0.02);
+            transition: var(--transition-main);
+        }
+
+            .consult-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+            }
+
+        .consult-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #f1fbf7;
+            color: var(--primary-green);
+            font-size: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--white);
+            padding: 80px 0 30px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .footer-col h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .footer-link {
+            color: var(--text-light);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 8px;
+        }
+
+            .footer-link i {
+                color: var(--primary-green);
+                font-size: 18px;
+            }
+
+            .footer-link:hover {
+                color: var(--primary-green);
+            }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            color: var(--text-light);
+            font-size: 13px;
+        }
+
+        /* --- Animaciones CSS --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-up {
+            opacity: 0;
+            animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .hero-wrapper {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .hero-text p {
+                margin: 0 auto 30px;
+            }
+
+            .hero-btns {
+                justify-content: center;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dr-mercado-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .consultation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-main-img {
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-logo {
+                justify-content: center;
+            }
+
+            .ui-overlay {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href="#" class="nav-logo">
+                <img src="logo.jpeg" alt="Logotipo Avicruz">
+            </a>
+            <ul class="nav-links">
+                <li><a href="#hero" class="nav-link">Inicio</a></li>
+                <li><a href="#servicios" class="nav-link">Líneas de Negocio</a></li>
+                <li><a href="#asesoria" class="nav-link">Auditoría Médica</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="https://wa.link/6w4pos" target="_blank" class="btn btn-green"><i class="fab fa-whatsapp" style="font-size: 1.2em;"></i> Contactar</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="hero" class="hero">
+        <div class="container hero-wrapper">
+            <div class="hero-text">
+                <h1 class="animate-up">Plataforma de alta <span>gestión avícola</span></h1>
+                <p class="animate-up delay-1">Optimiza tu operación. Adquiere genética de élite, controla tus parámetros productivos y recibe auditoría veterinaria en un solo ecosistema.</p>
+                <div class="hero-btns animate-up delay-2">
+                    <a href="#servicios" class="btn btn-green">Ver Servicios</a>
+                    <a href="#asesoria" class="btn btn-dark">Asesoría Técnica</a>
+                </div>
+            </div>
+
+            <div class="hero-image animate-up delay-3">
+                <div class="hero-accent-circle"></div>
+
+                <img src="pngegg.png" alt="Plataforma Avicruz" class="hero-main-img">
+
+                <div class="ui-overlay ui-chicken-lots">
+                    <i class="fas fa-check-circle" style="color: var(--primary-green); font-size: 20px; margin-bottom: 8px;"></i>
+                    <div style="font-weight: 700; font-size: 14px;">Viabilidad del Lote</div>
+                    <p style="font-size: 12px; color: var(--text-light); margin-top: 2px;">Tasa de supervivencia: <span style="color: var(--primary-green); font-weight: 600;">98.5%</span></p>
+                </div>
+
+                <div class="ui-overlay ui-egg-prod">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 11px; color: var(--text-light);">Producción Semanal</div>
+                            <div style="font-weight: 700; font-size: 18px; color: var(--text-dark);">25,450 <span style="font-size: 11px; font-weight: 500;">unidades</span></div>
+                        </div>
+                        <div style="background-color: #f1fbf7; padding: 8px 12px; border-radius: 10px; color: var(--primary-green); font-weight: 600; font-size: 13px;">
+                            <i class="fas fa-arrow-up"></i> 12%
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui-overlay ui-dr-checkup">
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <img src="Dr.Diego.jpeg" alt="Dr. Diego" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                        <div>
+                            <div style="font-weight: 700; font-size: 13px;">Dr. Mercado</div>
+                            <div style="font-size: 11px; color: var(--primary-green); font-weight: 600;">Auditoría Aprobada</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios" class="services">
+        <div class="container">
+            <h2 class="section-title">Portafolio Operativo</h2>
+            <p class="section-desc">Cubrimos integralmente las necesidades de la industria, garantizando calidad desde la cría hasta el producto final comercializado.</p>
+
+            <div class="services-grid">
+
+                <div class="service-widget">
+                    <div class="widget-header">
+                        <div class="widget-icon"><i class="fas fa-feather-alt"></i></div>
+                        <div class="widget-badge">Genética</div>
+                    </div>
+                    <h3>Gallinas Ponedoras</h3>
+                    <p>Comercialización de aves de líneas genéticas superiores. Aseguramos adaptabilidad ambiental, alta persistencia de postura y excelente conversión alimenticia para maximizar su inversión.</p>
+                    <a href="https://wa.link/6w4pos" target="_blank" class="widget-link">Cotizar Lote <i class="fab fa-whatsapp" style="font-size: 1.2em;"></i></a>
+                </div>
+
+                <div class="service-widget">
+                    <div class="widget-header">
+                        <div class="widget-icon" style="background-color: #fff8e1; color: #f5b041;"><i class="fas fa-egg"></i></div>
+                        <div class="widget-badge" style="background-color: #fff8e1; color: #f5b041;">Producción</div>
+                    </div>
+                    <h3>Venta de Huevo</h3>
+                    <p>Distribución mayorista de huevo clasificado y fresco. Producido bajo estrictos estándares de higiene, bioseguridad e inocuidad alimentaria garantizada.</p>
+                    <a href="https://wa.link/6w4pos" target="_blank" class="widget-link">Cotizar Pedido <i class="fab fa-whatsapp" style="font-size: 1.2em;"></i></a>
+                </div>
+
+                <div class="service-widget">
+                    <div class="widget-header">
+                        <div class="widget-icon" style="background-color: #f4ecf7; color: #af7ac5;"><i class="fas fa-seedling"></i></div>
+                        <div class="widget-badge" style="background-color: #f4ecf7; color: #af7ac5;">Agrícola</div>
+                    </div>
+                    <h3>Fertilizante Orgánico</h3>
+                    <p>Subproducto avícola tratado y estabilizado (gallinaza). Un excelente recuperador de suelos rico en macro y micronutrientes, ideal para potenciar cultivos extensivos e intensivos.</p>
+                    <a href="https://wa.link/6w4pos" target="_blank" class="widget-link">Cotizar Abono <i class="fab fa-whatsapp" style="font-size: 1.2em;"></i></a>
+                </div>
+
+                <div class="service-widget">
+                    <div class="widget-header">
+                        <div class="widget-icon" style="background-color: #ebf5fb; color: #3498db;"><i class="fas fa-stethoscope"></i></div>
+                        <div class="widget-badge" style="background-color: #ebf5fb; color: #3498db;">Consultoría</div>
+                    </div>
+                    <h3>Auditoría Técnica</h3>
+                    <p>Servicio exclusivo de inspección y optimización sanitaria impartido por especialistas. Prevenga enfermedades, ajuste raciones y maximice el bienestar animal de su granja.</p>
+                    <a href="#asesoria" class="widget-link">Conocer al Especialista <i class="fas fa-arrow-down"></i></a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="asesoria" class="advisory">
+        <div class="container">
+            <h2 class="section-title">Dirección Médica y Sanitaria</h2>
+            <p class="section-desc">Proteja su capital de trabajo. Un manejo técnico deficiente es el mayor riesgo avícola; nuestro equipo previene e interviene con precisión científica.</p>
+
+            <div class="dr-mercado-card">
+                <img src="Dr.Diego.jpeg" alt="Dr. Diego Mercado Vallejos" class="dr-mercado-avatar">
+
+                <div class="dr-mercado-info">
+                    <h3 class="dr-name">Dr. Diego Mercado Vallejos</h3>
+                    <div class="dr-title">Médico Veterinario Zootecnista</div>
+                    <p style="color: var(--text-light); font-size: 15px; margin-bottom: 25px;">
+                        Especialista en patología y producción avícola. Encargado del diseño de estrategias de prevención epidemiológica, manejo de galpones y auditoría de programas nutricionales para asegurar rentabilidad a escala industrial.
+                    </p>
+                    <a href="https://wa.link/6w4pos" target="_blank" class="btn btn-green"><i class="fab fa-whatsapp" style="font-size: 1.2em;"></i> Solicitar Inspección Técnica</a>
+                </div>
+            </div>
+
+            <div class="consultation-grid">
+                <div class="consult-card">
+                    <div class="consult-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Protocolos de Bioseguridad</h4>
+                    <p style="color: var(--text-light); font-size: 14px;">Evaluación de riesgos estructurales y diseño de barreras sanitarias efectivas.</p>
+                </div>
+                <div class="consult-card">
+                    <div class="consult-icon"><i class="fas fa-syringe"></i></div>
+                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Programas Profilácticos</h4>
+                    <p style="color: var(--text-light); font-size: 14px;">Implementación de calendarios de vacunación adaptados a la zona epidemiológica.</p>
+                </div>
+                <div class="consult-card">
+                    <div class="consult-icon"><i class="fas fa-chart-pie"></i></div>
+                    <h4 style="font-size: 18px; font-weight: 700; margin-bottom: 12px;">Auditoría Nutricional</h4>
+                    <p style="color: var(--text-light); font-size: 14px;">Análisis de eficiencia de conversión y ajuste de fórmulas según etapa productiva.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <a href="#" class="footer-logo">
+                        <img src="logo.jpeg" alt="Logotipo Avicruz" style="margin-bottom: 10px;">
+                    </a>
+                    <p style="color: var(--text-light); font-size: 14px; max-width: 260px;">Innovación, genética de primer nivel y respaldo médico para el éxito de su operación avícola.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Operaciones</h4>
+                    <a href="#servicios" class="footer-link">Genética y Cría</a>
+                    <a href="#servicios" class="footer-link">Distribución Comercial</a>
+                    <a href="#servicios" class="footer-link">Insumos Agrícolas</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Institucional</h4>
+                    <a href="#asesoria" class="footer-link">Cuerpo Médico</a> 
+                    <a href="#" class="footer-link">Normativas de Calidad</a>
+                    <a href="#" class="footer-link">Soporte Técnico</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto Directo</h4>
+                    <a href="https://wa.link/6w4pos" target="_blank" class="footer-link"><i class="fab fa-whatsapp"></i> WhatsApp Ventas</a>
+                    <a href="https://wa.link/6w4pos" target="_blank" class="footer-link"><i class="fab fa-whatsapp"></i> WhatsApp Consultoría</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                &copy; 2026 Plataforma Avicruz. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const overlays = document.querySelectorAll('.ui-overlay');
+                overlays.forEach(overlay => overlay.classList.add('active'));
+            }, 500);
+        });
+    </script>
+</body>
+</html>
